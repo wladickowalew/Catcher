@@ -12,7 +12,7 @@ import java.awt.Image;
  *
  * @author Ковалев Владислав
  */
-public class Player {
+public abstract class Player {
     private Image img;
     private int x, y;
     private int border;
@@ -55,4 +55,7 @@ public class Player {
     public boolean isFall() {
 	return y + img.getHeight(null) >= border;
     }
+    
+    public int getFallLive(boolean capture){return 0;}
+    public int getFallPoint(boolean capture){return 0;}
 }

@@ -29,14 +29,26 @@ public class Field extends JPanel {
     private Image background, end;
     private int border, width;
     private Catcher cat;
-    private Timer timer_draw;
+    private Timer timer_draw, timer_update;
+    private int lives, points, level;
 
     public Field(int h, int w) {
-        this.border = h - 125;
-        this.width = w;
-        objects = new ArrayList<>();
-        cat = new Catcher(border, w);
-        objects.add(cat);
+        border = h - 125;
+        width = w;
+        addBackground();
+        startData();
+    }
+    
+    private void startData(){
+        cat = new Catcher(border, width);
+        objects = new ArrayList<>(); 
+        lives = 3;
+        points = 0;
+        level = 1;
+        addTimers();
+    }
+    
+    private void addTimers(){
         ActionListener drawListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,17 +57,76 @@ public class Field extends JPanel {
         };
         timer_draw = new Timer(50, drawListener);
         timer_draw.start();
-        addBackground();
+        ActionListener updateListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 update();
+            }
+        };
+        timer_update = new Timer(500, updateListener);
+        timer_update.start();
     }
     
-    public void addBackground(){
+    private void update(){
+        double p = 0.2;
+        if (p > Math.random()) 
+            addObject();
+        for (int i = 0; i < objects.size(); i++){
+            if (objects.get(i).isFall()){ 
+                objectFall(objects.get(i));
+                objects.remove(i);
+            }
+        } 
+    }
+    
+    private void objectFall(Player obj){
+        boolean capture = cat.catchObject(obj.getX());
+        lives += obj.getFallLive(capture);
+        points += obj.getFallPoint(capture);
+        printStat();
+        endGame();
+    }
+    
+    private void addObject(){
+        double p = 0.5;
+        Player obj = null;
+        if (p > Math.random()) 
+            obj = new Enemy(border, width);
+        else
+            obj = new Friend(border, width);
+        objects.add(obj);
+    }
+    
+    private void addBackground(){
         try {
             background = ImageIO.read(new File("data/images/background.jpg"));
         } catch (IOException ex) {
             Logger.getLogger(Catcher.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
+    
+    private void addEnd(){
+        try {
+            end = ImageIO.read(new File("data/images/end.jpg"));
+        } catch (IOException ex) {
+            Logger.getLogger(Catcher.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    private void endGame(){
+        if (lives > 0) return;
+        timer_draw.stop();
+        timer_update.stop();
+        addEnd();
+        repaint();
+    }
 
+    private void printStat(){
+        System.out.println("Lives: " + lives + 
+                           " Points: " + points +
+                           " Level: " + level) ;
+    }
+    
     public void setCatX(int x) {cat.setX(x);}
     public int getCatX() {return cat.getX();}
 
@@ -64,6 +135,12 @@ public class Field extends JPanel {
         gr.drawImage(background, 0, 0, null);
         for (Player player : objects) {
             player.draw(gr);
+        }
+        cat.draw(gr);
+        if (end != null){
+            int x = (width - end.getWidth(null))/2;
+            int y = (border + 125 - end.getHeight(null))/2;
+            gr.drawImage(end, x, y, null);
         }
     }
 

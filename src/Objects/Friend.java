@@ -16,24 +16,24 @@ import javax.imageio.ImageIO;
  *
  * @author Ковалев Владислав
  */
-public class Catcher extends Player{
+public class Friend extends Enemy{
     
-    public Catcher(int border, int w) {
-        super(null, border, w);
-        System.out.println(border);
-        Image img = null;
+    public Friend(int border, int w) {
+        super(border, w);
         try {
-            img = ImageIO.read(new File("data/images/catcher.png"));
+            Image img = ImageIO.read(new File("data/images/friend.png"));
             setImg(img);
         } catch (IOException ex) {
             Logger.getLogger(Catcher.class.getName()).log(Level.SEVERE, null, ex);
-        }   
-        setY(border);
-        setX((w - img.getWidth(null))/2);
+        }
     }
     
-    public boolean catchObject(int x){
-        return Math.abs(getX() - x) < 50;
+    public int getFallLive(boolean capture){
+        return 0;
+    }
+    
+    public int getFallPoint(boolean capture){
+        return (capture ? 1 : 0);
     }
     
 }
