@@ -9,14 +9,14 @@ package Objects;
  *
  * @author Ковалев Владислав
  */
-public class Bomb extends Enemy{
+public class Death extends Enemy{
     
-    public Bomb(int border, int w) {
-        super(border, w, "bomb.png");
+    public Death(int border, int w) {
+        super(border, w, "death.png");
     }
     
     public int getFallLive(boolean capture){
-        return (capture ? -2 : 0);
+        return (capture ? -1000000 : 0);
     }
     
     public int getFallPoint(boolean capture){

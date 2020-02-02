@@ -19,13 +19,7 @@ import javax.imageio.ImageIO;
 public class Friend extends Enemy{
     
     public Friend(int border, int w) {
-        super(border, w);
-        try {
-            Image img = ImageIO.read(new File("data/images/friend.png"));
-            setImg(img);
-        } catch (IOException ex) {
-            Logger.getLogger(Catcher.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super(border, w, "friend.png");
     }
     
     public int getFallLive(boolean capture){

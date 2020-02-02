@@ -83,17 +83,31 @@ public class Field extends JPanel {
         boolean capture = cat.catchObject(obj.getX());
         lives += obj.getFallLive(capture);
         points += obj.getFallPoint(capture);
+        if (lives < 0) lives = 0;
+        if (points < 0) points = 0;
         printStat();
         endGame();
     }
     
     private void addObject(){
-        double p = 0.5;
+        double p = Math.random();
         Player obj = null;
-        if (p > Math.random()) 
-            obj = new Enemy(border, width);
-        else
+        if (p < 0.2) 
             obj = new Friend(border, width);
+        if (0.2 <= p && p < 0.5) 
+            obj = new Enemy(border, width);
+        if (0.5 <= p && p < 0.65) 
+            obj = new Bomb(border, width);
+        if (0.65 <= p && p < 0.72) 
+            obj = new Casino(border, width);
+        if (0.72 <= p && p < 0.82) 
+            obj = new Cigarette(border, width);
+        if (0.82 <= p && p < 0.87) 
+            obj = new Death(border, width);
+        if (0.87 <= p && p < 0.97) 
+            obj = new Heart(border, width);
+        if (0.97 <= p) 
+            obj = new Snitch(border, width); 
         objects.add(obj);
     }
     

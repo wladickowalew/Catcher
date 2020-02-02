@@ -22,12 +22,18 @@ import javax.swing.Timer;
 public class Enemy extends Player {
     
     private Timer timer;
+    private int d;
+    
+    public Enemy(int border, int w){
+        this(border, w, "enemy.png");
+    }
 
-    public Enemy(int border, int w) {
+    public Enemy(int border, int w, String path) {
         super(null, border, w);
+        d = (int)(1 + Math.floor(Math.random() * 2));
         Image img = null;
         try {
-            img = ImageIO.read(new File("data/images/enemy.png"));
+            img = ImageIO.read(new File("data/images/" + path));
             setImg(img);
         } catch (IOException ex) {
             Logger.getLogger(Catcher.class.getName()).log(Level.SEVERE, null, ex);
@@ -37,10 +43,11 @@ public class Enemy extends Player {
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setY(getY() + 5);
+                setY(getY() + d);
             }
         };
-        timer = new Timer(100, al);
+        int speed = (int)(5 + Math.floor(Math.random() * 70));
+        timer = new Timer(speed, al);
         timer.start();
     }
     
