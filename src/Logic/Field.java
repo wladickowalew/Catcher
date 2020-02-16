@@ -155,6 +155,7 @@ public class Field extends JPanel {
     private void addBackground(){
         try {
             background = ImageIO.read(new File("data/images/background.jpg"));
+            background = background.getScaledInstance(width, border+125, Image.SCALE_DEFAULT);
         } catch (IOException ex) {
             Logger.getLogger(Catcher.class.getName()).log(Level.SEVERE, null, ex);
         }   
