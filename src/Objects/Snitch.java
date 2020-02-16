@@ -11,8 +11,8 @@ package Objects;
  */
 public class Snitch extends Enemy{
     
-    public Snitch(int border, int w) {
-        super(border, w, "snitch.png");
+    public Snitch(int border, int w, double level) {
+        super(border, w, "snitch.png", level);
     }
     
     public int getFallLive(boolean capture){

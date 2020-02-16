@@ -11,8 +11,8 @@ package Objects;
  */
 public class Casino extends Enemy{
     
-    public Casino(int border, int w) {
-        super(border, w, "casino.png");
+    public Casino(int border, int w, double level) {
+        super(border, w, "casino.png", level);
     }
     
     public int getFallLive(boolean capture){

@@ -11,8 +11,8 @@ package Objects;
  */
 public class Bomb extends Enemy{
     
-    public Bomb(int border, int w) {
-        super(border, w, "bomb.png");
+    public Bomb(int border, int w, double level) {
+        super(border, w, "bomb.png", level);
     }
     
     public int getFallLive(boolean capture){

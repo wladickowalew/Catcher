@@ -11,8 +11,8 @@ package Objects;
  */
 public class Heart extends Enemy{
     
-    public Heart(int border, int w) {
-        super(border, w, "heart.png");
+    public Heart(int border, int w, double level) {
+        super(border, w, "heart.png", level);
     }
     
     public int getFallLive(boolean capture){

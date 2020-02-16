@@ -24,13 +24,13 @@ public class Enemy extends Player {
     private Timer timer;
     private int d;
     
-    public Enemy(int border, int w){
-        this(border, w, "enemy.png");
+    public Enemy(int border, int w, double level){
+        this(border, w, "enemy.png", level);
     }
 
-    public Enemy(int border, int w, String path) {
+    public Enemy(int border, int w, String path, double level) {
         super(null, border, w);
-        d = (int)(1 + Math.floor(Math.random() * 2));
+        d = randInt(1, 3);
         Image img = null;
         try {
             img = ImageIO.read(new File("data/images/" + path));
@@ -39,16 +39,23 @@ public class Enemy extends Player {
             Logger.getLogger(Catcher.class.getName()).log(Level.SEVERE, null, ex);
         }
         setY(-100);
-        setX((int) (Math.random() * (w - 100)));
+        setX(randInt(0, w-100));
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setY(getY() + d);
             }
         };
-        int speed = (int)(5 + Math.floor(Math.random() * 70));
+        int a = 5, b = 50;
+        int min = a + (int)(b * (1 - level));
+        int max = 3 * a + (int)(b * (1 - level));
+        int speed = randInt(min, max);
         timer = new Timer(speed, al);
         timer.start();
+    }
+    
+    private int randInt(int a, int b){
+        return (int)(a + Math.random() * (b - a));
     }
     
     public int getFallLive(boolean capture){

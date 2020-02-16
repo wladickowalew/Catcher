@@ -18,8 +18,8 @@ import javax.imageio.ImageIO;
  */
 public class Friend extends Enemy{
     
-    public Friend(int border, int w) {
-        super(border, w, "friend.png");
+    public Friend(int border, int w, double level) {
+        super(border, w, "friend.png", level);
     }
     
     public int getFallLive(boolean capture){

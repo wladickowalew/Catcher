@@ -11,8 +11,8 @@ package Objects;
  */
 public class Cigarette extends Enemy{
     
-    public Cigarette(int border, int w) {
-        super(border, w, "siga.jpg");
+    public Cigarette(int border, int w, double level) {
+        super(border, w, "siga.jpg", level);
     }
     
     public int getFallLive(boolean capture){

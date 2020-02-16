@@ -17,7 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int w= 800, h= 600;
+        int w= 1920, h= 1080;
         Window window = new Window(w, h);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

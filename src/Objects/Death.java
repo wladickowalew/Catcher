@@ -11,8 +11,8 @@ package Objects;
  */
 public class Death extends Enemy{
     
-    public Death(int border, int w) {
-        super(border, w, "death.png");
+    public Death(int border, int w, double level) {
+        super(border, w, "death.png", level);
     }
     
     public int getFallLive(boolean capture){
